@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>T-Shirt Store</title>
+</head>
+
+<body>
+    <fieldset>
+        <legend>
+            <h1>T-Store</h1>
+        </legend>
+        <header>
+            <h1>Welcome to T-Store!</h1>
+        </header>
+        <hr>
+        <section>
+            <h2>Customize your tshirt:</h2><br>
+            <form action="#" method="get" id="tshirtForm" onsubmit="return processOrder()">
+                <h3><label> Customer Name: <input type="text" name="name" id="name"></label></h3>
+                <h3><label> Contact No.: <input type="text" name="phn" id="phn"></label></h3>
+                <h3><label> Gender:<br>
+                        <input type="radio" id="male" name="gender" value="Male">
+                        <label for="male">Male</label><br>
+                        <input type="radio" id="female" name="gender" value="Female">
+                        <label for="female">Female</label><br></label></h3>
+                <h3><label> Tagline(on tshirt): <input type="text" name="tag" id="tag"></label></h3>
+                <h3><label> Colour: <input type="color" name="col" id="col"></label></h3>
+                <label> Size </label>
+                <span>
+                    <select name="size" id="size">
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </span>
+                <h3><label> Quantity:<label for="quantity">Quantity (between 1 and 5):</label>
+                        <input type="number" id="quantity" name="quantity" min="1" max="5"></label></h3>
+                <h3><label> Date(until required): <input type="date" name="requiredDate" id="requiredDate"></label></h3>
+                <h3><label>
+                        <span> Shipping Address <span class="required"> * </span></span>
+                        <input type="text" name="houseadd" id="houseadd" placeholder="House
+number and street name" required size="40">
+                    </label> <br> </h3>
+                <h3><label>
+                        <span> </span>
+                        <input type="text" name="apartment" id="apartment"
+                            placeholder="Apartment, suite, unit etc. (optional)" size="40">
+                    </label> <br></h3>
+                <h3> <label>
+                        <span> Town / City <span class="required">*</span></span>
+                        <input type="text" name="city" id="city">
+                    </label> <br></h3>
+                <h3><label>
+                        <span> State / Country <span class="required">*</span></span>
+                        <input type="text" name="stateCountry" id="stateCountry">
+                    </label> <br> </h3>
+                <h3><label>
+                        <span> Postcode / ZIP <span class="required">*</span></span>
+                        <input type="text" name="postcode" id="postcode">
+                    </label> <br></h3>
+                <input type="submit" value="Submit">
+                <input type="reset">
+            </form>
+        </section>
+    </fieldset>
+    <footer >
+    <h3><strong>Contact: 0000000000 EMail id:
+tstores@gmail.com</strong></h3>
+    </footer>
+    <div id="receipt"></div>
+    <script>
+        function processOrder() {
+            let name = document.getElementById("name").value;
+            let phn = document.getElementById("phn").value;
+            let taglineInput = document.getElementById("tag");
+            let tagline = taglineInput.value;
+            let maxTaglineLength = 20;
+            if (tagline.length > maxTaglineLength) {
+                alert("Tagline must not exceed " + maxTaglineLength + " characters.");
+                return false;
+            }
+            if (phn.length !== 10) {
+                alert("Contact No. must have exactly 10 digits");
+                return false;
+            }
+            let gender = document.querySelector('input[name="gender"]:checked');
+            let tag = document.getElementById("tag").value;
+            let color = document.getElementById("col").value;
+            let size = document.getElementById("size").value;
+            let quantity = document.getElementById("quantity").value;
+            let requiredDate = document.getElementById("requiredDate").value;
+            let houseadd = document.getElementById("houseadd").value;
+            let apartment = document.getElementById("apartment").value;
+            let city = document.getElementById("city").value;
+            let stateCountry = document.getElementById("stateCountry").value;
+            let postcode = document.getElementById("postcode").value;
+            let receiptContent = `
+            <h2>Order Receipt</h2>
+            <p>Name: ${name}</p>
+            <p>Contact No.: ${phn}</p>
+            <p>Gender: ${gender ? gender.value : ''}</p>
+            <p>Tagline: ${tag}</p>
+            <p>Color: ${color}</p>
+            <p>Size: ${size}</p>
+            <p>Quantity: ${quantity}</p>
+            <p>Date Required: ${requiredDate}</p>
+            <p>Shipping Address: ${houseadd}, ${apartment}, ${city}, ${stateCountry},
+            ${postcode}</p>
+            <p>Date of Receipt: ${new Date().toLocaleString()}</p>
+ `;
+            document.getElementById("receipt").innerHTML = receiptContent;
+            return false;
+        }
+    </script>
+</body>
+
+</html>
